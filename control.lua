@@ -7,9 +7,9 @@ local GREEN = {g = 0.7}
 local YELLOW = {r = 0.8, g = 0.8}
 
 local order = { 
-							itemcount = 1,
-							array = 2
-						}
+								itemcount = 1,
+								array = 2
+							}
 
 --
 --Events
