@@ -1,0 +1,9 @@
+{
+  "name": "autofill",
+  "version": "1.1.0",
+  "title": "Autofill",
+  "author": "rk84",
+  "contact": "www.factorioforums.com",
+  "description": "Autofill inserts stuff inside stuff on build.",
+	"dependencies": ["base"]
+}
