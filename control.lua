@@ -46,15 +46,15 @@ function initMod()
 	checkValidItems(fuels)
 	checkValidItems(ammos)
 	glob.fillable = {
-									car = {priority=order.itemcount, table.unpack(fuels)},
-									locomotive = {priority=order.itemcount, table.unpack(fuels)},
-									["burner-mining-drill"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
-									["stone-furnace"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
-									["steel-furnace"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
-									["burner-inserter"]= {priority=order.itemcount, group="burners", table.unpack(fuels)},
-									boiler = {priority=order.itemcount, group="burners", table.unpack(fuels)},
-									["gun-turret"]= {priority=order.array, group="turrets", table.unpack(ammos)}
-								} --if group is defined, then insertable items are divided for buildable items in quickbar (and in hand).
+	  car = {priority=order.itemcount, table.unpack(fuels)},
+    locomotive = {priority=order.itemcount, table.unpack(fuels)},
+		["burner-mining-drill"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
+		["stone-furnace"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
+		["steel-furnace"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
+    ["burner-inserter"]= {priority=order.itemcount, group="burners", table.unpack(fuels)},
+    boiler = {priority=order.itemcount, group="burners", table.unpack(fuels)},
+    ["gun-turret"]= {priority=order.array, group="turrets", table.unpack(ammos)}
+	} --if group is defined, then insertable items are divided for buildable items in quickbar (and in hand).
 end
 
 function checkValidItems(tbl)
