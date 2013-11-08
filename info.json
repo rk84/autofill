@@ -5,5 +5,5 @@
   "author": "rk84",
   "contact": "www.factorioforums.com",
   "description": "Autofill inserts stuff inside stuff on build.",
-	"dependencies": ["base"]
+  "dependencies": ["base"]
 }
