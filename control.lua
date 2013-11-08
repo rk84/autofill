@@ -7,9 +7,9 @@ local GREEN = {g = 0.7}
 local YELLOW = {r = 0.8, g = 0.8}
 
 local order = { 
-								itemcount = 1,
-								array = 2
-							}
+  itemcount = 1,
+  array = 2
+}
 
 --
 --Events
@@ -40,42 +40,42 @@ end)
 --
 
 function initMod()
-	glob.active = true
-	local fuels = {"coke-coal", "charcoal", "coal", "raw-wood", "wood", "wooden-chest"}
-	local ammos = {"piercing-bullet-magazine", "basic-bullet-magazine"}
-	checkValidItems(fuels)
-	checkValidItems(ammos)
-	glob.fillable = {
-	  car = {priority=order.itemcount, table.unpack(fuels)},
+  glob.active = true
+  local fuels = {"coke-coal", "charcoal", "coal", "raw-wood", "wood", "wooden-chest"}
+  local ammos = {"piercing-bullet-magazine", "basic-bullet-magazine"}
+  checkValidItems(fuels)
+  checkValidItems(ammos)
+  glob.fillable = {
+    car = {priority=order.itemcount, table.unpack(fuels)},
     locomotive = {priority=order.itemcount, table.unpack(fuels)},
-		["burner-mining-drill"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
-		["stone-furnace"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
-		["steel-furnace"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
+    ["burner-mining-drill"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
+    ["stone-furnace"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
+    ["steel-furnace"] = {priority=order.itemcount, group="burners", table.unpack(fuels)},
     ["burner-inserter"]= {priority=order.itemcount, group="burners", table.unpack(fuels)},
     boiler = {priority=order.itemcount, group="burners", table.unpack(fuels)},
     ["gun-turret"]= {priority=order.array, group="turrets", table.unpack(ammos)}
-	} --if group is defined, then insertable items are divided for buildable items in quickbar (and in hand).
+  } --if group is defined, then insertable items are divided for buildable items in quickbar (and in hand).
 end
 
 function checkValidItems(tbl)
-	for i = #tbl, 1, -1 do
-		if game.itemprototypes[tbl[i]] == nil then
-			aPrint("Item",tbl[i],"removed from table.")
-			table.remove(tbl, i)
-		end
-	end
+  for i = #tbl, 1, -1 do
+    if game.itemprototypes[tbl[i]] == nil then
+      aPrint("Item",tbl[i],"removed from table.")
+      table.remove(tbl, i)
+    end
+  end
 end
 
 function autoFill(entity)
-	local maininv = game.player.getinventory(defines.inventory.playermain)
-	local fill_set = table.deepcopy(glob.fillable[entity.name] or glob.fillable[entity.type])
-	local limitperbuild = 9999
-	--Remove unavailable items
-	for i = #fill_set, 1, -1 do
-		if maininv.getitemcount(fill_set[i]) < 1 then
-			table.remove(fill_set, i)
-		end
-	end
+  local maininv = game.player.getinventory(defines.inventory.playermain)
+  local fill_set = table.deepcopy(glob.fillable[entity.name] or glob.fillable[entity.type])
+  local limitperbuild = 9999
+  --Remove unavailable items
+  for i = #fill_set, 1, -1 do
+    if maininv.getitemcount(fill_set[i]) < 1 then
+      table.remove(fill_set, i)
+    end
+  end
 	if fill_set[1] == nil then
 		text("Out of items.", entity.position, RED)
 		return
