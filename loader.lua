@@ -4,16 +4,46 @@ local defaultsets_backup = {}
 loader = {
   addItems = function(path)
     local tbl = require (path)
-    for key, value in pairs(tbl) do
-      item_arrays_backup[key] = value
+    local unknown = false
+    
+    for name, array in pairs(tbl) do
+      unknown = false
+      
+      for i=1, #array do
+        if game.item_prototypes[array[i]] == nil then
+          unknown = array[i]
+          break
+        end
+      end
+      
+      if not unknown then
+        item_arrays_backup[name] = value
+      end
     end
+  
   end,
 
   addSets = function(path)
     local tbl = require (path)
-    for key, value in pairs(tbl) do
-      defaultsets_backup[key] = value
+    local unknown = false
+    
+    for name, set in pairs(tbl) do
+      if game.entity_prototypes[name] then
+        unknown = false
+        
+        for i=1, #set do
+          if type(set[i]) == "string" and item_arrays_backup[set[i]] == nil then
+            unknown = set[i]
+            break
+          end
+        end
+      
+        if not unknown then
+          defaultsets_backup[name] = set
+        end
+      end
     end
+  
   end,
 
   loadBackup = function()
