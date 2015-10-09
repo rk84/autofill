@@ -17,7 +17,7 @@ loader = {
       end
       
       if not unknown then
-        item_arrays_backup[name] = value
+        item_arrays_backup[name] = array
       end
     end
   
