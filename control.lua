@@ -4,6 +4,8 @@ require "loader"
 
 loader.addItems "settings/vanilla-items"
 loader.addSets "settings/vanilla-sets"
+loader.addSets "settings/bob-sets"
+loader.addSets "settings/farl-sets"
 
 MOD = { NAME = "Autofill", IF = "af" }
 
