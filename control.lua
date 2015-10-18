@@ -24,15 +24,15 @@ local order = {
 --Events
 --
 
-game.on_init(function()
+script.on_init(function()
   initMod()
 end)
 
-game.on_load(function()
+script.on_load(function()
   initMod()
 end)
 
-game.on_event(defines.events.on_built_entity, function(event)
+script.on_event(defines.events.on_built_entity, function(event)
   local player = game.get_player(event.player_index)
   local global = global
   if global.personalsets[player.name] and global.personalsets[player.name].active then
@@ -43,7 +43,7 @@ game.on_event(defines.events.on_built_entity, function(event)
   end
 end)
 
-game.on_event(defines.events.on_player_created, function(event)
+script.on_event(defines.events.on_player_created, function(event)
   local username = game.get_player(event.player_index).name
   if global.personalsets[username] == nil then
     global.personalsets[username] = { active = true }
