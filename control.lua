@@ -24,11 +24,11 @@ local order = {
 --Events
 --
 
-script.on_init(function()
+script.on_configuration_changed(function()
   initMod()
 end)
 
-script.on_load(function()
+script.on_init(function()
   initMod()
 end)
 
@@ -105,7 +105,7 @@ function autoFill(entity, player, fillset)
     end
 
     if not item or count < 1 then
-      text({"autofill.out-of-item",game.get_localised_item_name(array[1])}, textpos, color)
+      text({"autofill.out-of-item", game.item_prototypes[array[1]].localised_name }, textpos, color)
       textpos.y = textpos.y + 1
     else
       -- Divide stack between group (only items in quickbar are part of group)
@@ -176,10 +176,10 @@ function autoFill(entity, player, fillset)
           maininv.remove({name=item, count=inserted})
         end
         if removed then
-          text({"autofill.insertion-from-vehicle", inserted, game.get_localised_item_name(item), removed, game.get_localised_item_name(player.vehicle.name)}, textpos, color)
+          text({"autofill.insertion-from-vehicle", inserted, game.item_prototypes[item].localised_name, removed, game.entity_prototypes[player.vehicle.name].localised_name}, textpos, color)
           textpos.y = textpos.y + 1
         else
-          text({"autofill.insertion", inserted, game.get_localised_item_name(item)}, textpos, color)
+          text({"autofill.insertion", inserted, game.item_prototypes[item].localised_name }, textpos, color)
           textpos.y = textpos.y + 1
         end
       end      
@@ -230,7 +230,7 @@ function globalPrint(msg)
 end
 
 function initMod(reset)
-  if not global.has_init or reset then
+  if not global.defaultsets or not global.personalsets or not global.item_arrays or reset then
     global = {} -- Clears global
 
     loader.loadBackup()
@@ -241,6 +241,9 @@ function initMod(reset)
     end
     
     global.has_init = true
+    
+  else
+    loader.updateFuelArrays()
   end
 end
 

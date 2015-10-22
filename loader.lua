@@ -19,33 +19,8 @@ loader = {
   loadBackup = function()
     global.item_arrays = table.deepcopy(item_arrays_backup)
     global.defaultsets = table.deepcopy(defaultsets_backup)
-    
     -- Add items to fuel arrays
-    local all = global.item_arrays["fuels-all"]
-    local high = global.item_arrays["fuels-high"]
-    
-    if all or high then
-      local MINfuel_value = 8000000 -- Joules
-      for name, item in pairs(game.item_prototypes) do
-        if item.fuel_value > 0 then
-          if all then
-            all[#all + 1] = name
-          end
-          if item.fuel_value >= MINfuel_value then
-            if high then
-              high[#high + 1] = name
-            end
-          end
-        end
-      end
-    end
-
-    local fuelHighToLow = function(a,b)
-      return game.item_prototypes[a].fuel_value > game.item_prototypes[b].fuel_value
-    end
-    table.sort(all, fuelHighToLow)
-    table.sort(high, fuelHighToLow)
-
+    loader.updateFuelArrays()
     -- Remove arrays with false item names
     for name, array in pairs(global.item_arrays) do
       for i=1, #array do
@@ -84,5 +59,32 @@ loader = {
       end
     end
     
+  end,
+  
+  updateFuelArrays = function()
+    local all = global.item_arrays["fuels-all"]
+    local high = global.item_arrays["fuels-high"]
+    
+    if all or high then
+      local MINfuel_value = 8000000 -- Joules
+      for name, item in pairs(game.item_prototypes) do
+        if item.fuel_value > 0 then
+          if all then
+            all[#all + 1] = name
+          end
+          if item.fuel_value >= MINfuel_value then
+            if high then
+              high[#high + 1] = name
+            end
+          end
+        end
+      end
+    end
+
+    local fuelHighToLow = function(a,b)
+      return game.item_prototypes[a].fuel_value > game.item_prototypes[b].fuel_value
+    end
+    table.sort(all, fuelHighToLow)
+    table.sort(high, fuelHighToLow)
   end
 }
