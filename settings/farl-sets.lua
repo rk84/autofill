@@ -1,3 +1,3 @@
 return {
-  ["farl"] = {"fuels-high"}
+  ["farl"] = {group="locomotives", "fuels-high"}
 }

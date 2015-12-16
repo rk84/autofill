@@ -1,13 +1,19 @@
 require "defines"
 require "util"
-require "loader"
 
-loader.addItems "settings/vanilla-items"
+MOD = { NAME = "Autofill", IF = "af" }
+
+require "loader"
+loader.addItemArray "settings/vanilla-items"
 loader.addSets "settings/vanilla-sets"
 loader.addSets "settings/bob-sets"
 loader.addSets "settings/farl-sets"
+loader.addSets "settings/color-coding-sets"
+loader.extendItemArray "settings/ammobox-items"
+loader.addSets "settings/ammobox-sets"
+loader.addSets "settings/yuoki-ind-sets"
 
-MOD = { NAME = "Autofill", IF = "af" }
+
 
 --flying text colors
 local RED = {r = 0.9}
@@ -243,7 +249,7 @@ function initMod(reset)
     global.has_init = true
     
   else
-    loader.updateFuelArrays()
+    loader.updateFuelArrays(global.item_arrays)
   end
 end
 
@@ -372,7 +378,13 @@ remote.add_interface(MOD.IF,
     end
     global.defaultsets = sets
   end,
-
+  
+  getBackupLog = function()
+    local tbl = loader.getBackupLog()
+    local block = table.concat(tbl, "\n")
+    log(block)
+  end,
+  
   getItemArray = function(name)
     return global.item_arrays[name]
   end,

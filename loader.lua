@@ -1,69 +1,172 @@
 local item_arrays_backup = {}
+local extension_items_backup = {}
 local defaultsets_backup = {}
+local wildcardsets_backup = {}
+local backup_log = {MOD.NAME .." loader log:"}
 
 loader = {
-  addItems = function(path)
-    local tbl = require (path)
+  addItemArray = function(path)
+    local tbl = require(path)
     for name, array in pairs(tbl) do
-      item_arrays_backup[name] = array
+      if item_arrays_backup[name] == nil then
+        item_arrays_backup[name] = array
+      else
+        --item_arrays_backup[name] = array
+        backup_log[#backup_log + 1] = "Duplicate array '" .. name .. "' in '" .. path .. "'"
+      end
+    end
+  end,
+  
+  extendItemArray = function(path)
+    local tbl = require(path)
+    for name, array in pairs(tbl) do
+      if item_arrays_backup[name] then
+        extension_items_backup[name] = array
+      else
+        backup_log[#backup_log + 1] = "Array '" .. name .. "' not found in '" .. path .. "'"
+      end
     end
   end,
 
   addSets = function(path)
-    local tbl = require (path)
+    local tbl = require(path)
+    local wildcards = 0
     for name, set in pairs(tbl) do
-      defaultsets_backup[name] = set
+      name, wildcards = name:gsub("*",".+")
+      if wildcards == 0 then
+        if defaultsets_backup[name] == nil then
+          defaultsets_backup[name] = set
+        else
+          --defaultsets_backup[name] = set
+          backup_log[#backup_log + 1] = "Duplicate set '" .. name .. "' in '" .. path .. "'"
+        end
+      else
+        name, _ = name:gsub("%-","%%-")
+        if wildcardsets_backup[name] == nil then
+          wildcardsets_backup[name] = set
+        else
+          --wildcardsets_backup[name] = array
+          backup_log[#backup_log + 1] = "Duplicate wildcard '" .. name .. "' in '" .. path .. "'"
+        end
+      end
     end
+  end,
+  
+  getBackupLog = function()
+    return backup_log
   end,
 
   loadBackup = function()
-    global.item_arrays = table.deepcopy(item_arrays_backup)
-    global.defaultsets = table.deepcopy(defaultsets_backup)
-    -- Add items to fuel arrays
-    loader.updateFuelArrays()
+    local item_arrays = table.deepcopy(item_arrays_backup)
+    local extension_items = table.deepcopy(extension_items_backup)
+    local defaultsets = table.deepcopy(defaultsets_backup)
+    local wildcardsets = wildcardsets_backup
+
+    -- Add fuel items to fuel arrays
+    loader.updateFuelArrays(item_arrays)
     -- Remove arrays with false item names
-    for name, array in pairs(global.item_arrays) do
+    for name, array in pairs(item_arrays) do
       for i=1, #array do
         if game.item_prototypes[array[i]] == nil then
-          global.item_arrays[name] = nil
+          backup_log[#backup_log + 1] = "Item array '" .. name .. "' removed"
+          item_arrays[name] = nil
           break
         end
       end
     end
     
-    -- Remove sets with false entity names
-    for name, set in pairs(global.defaultsets) do
+    -- Remove extensions that has false itemnames and lacks of target array
+    for name, array in pairs(extension_items) do
+      if item_arrays[name] then
+        for i=1, #array do
+          if type(array[i]) == "table" then
+            if game.item_prototypes[array[i][1]] == nil then
+              backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
+              extension_items[name] = nil
+              break
+            end
+          else
+            if game.item_prototypes[array[i]] == nil then
+              backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
+              extension_items[name] = nil
+              break
+            end
+          end
+        end
+      else -- lacks target array
+        backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
+        extension_items[name] = nil
+      end
+    end
+    
+    -- Add item extensions to item_arrays
+    local tbl = table
+    for name, array in pairs(extension_items) do
+      for i=1, #array do
+        if type(array[i]) == "table" then -- has index in second cell
+          if array[i][2] < 0 then -- negative index should be handled same way as with find method
+            tbl.insert(item_arrays[name], #item_arrays[name] + array[i][2] + 2, array[i][1])
+          elseif array[i][2] > 0 then
+            tbl.insert(item_arrays[name], array[i][2], array[i][1])
+          end
+        else -- no index defined add last
+          item_arrays[name][#item_arrays[name] + 1] = array[i]
+        end
+      end
+    end
+    
+    --Pre-search wildcard entity names and add them to defaultsets
+    for pattern, set in pairs(wildcardsets) do
+      for name, _ in pairs(game.entity_prototypes) do
+        if defaultsets[name] == nil and name:find(pattern) then
+          defaultsets[name] = set
+        end
+      end
+    end
+    
+    -- Remove sets with false entity names. Remove invalid items. Link array names to item_arrays
+    for name, set in pairs(defaultsets) do
       if game.entity_prototypes[name] then
-        unknown = false
-        
+      
         for i=#set, 1, -1 do
-          if type(set[i]) == "string" and global.item_arrays[set[i]] == nil then --TODO: another item name check for arrays
-            table.remove(set, i)
+          if type(set[i]) == "string" then
+            if game.item_prototypes[set[i]] then
+              set[i] = {set[i]}
+            elseif item_arrays[set[i]] then
+              set[i] = item_arrays[set[i]]
+            else -- invalid string
+              backup_log[#backup_log + 1] = "Invalid string '" .. set[i] .. "' removed from '" .. name .. "' set"
+              table.remove(set, i)
+            end
+          elseif type(set[i]) == "table" then -- should contain array of item names.
+            for j=1, #set[i] do
+              if game.item_prototypes[set[i][j]] == nil then -- one false itemname will removes whole array
+                backup_log[#backup_log + 1] = "Invalid array removed from '" .. name .. "' set"
+                table.remove(set, i)
+                break
+              end
+            end
           end
         end
       
-        if #set == 0 then
-          global.defaultsets[name] = nil
+        if #set == 0 then -- has no items or arrays
+          backup_log[#backup_log + 1] = "Empty set '" .. name .. "'. Set removed"
+          defaultsets[name] = nil
         end
       else -- unknown name
-        global.defaultsets[name] = nil
+        backup_log[#backup_log + 1] = "Invalid entity name '" .. name .. "'. Set removed"
+        defaultsets[name] = nil
       end
     end
     
-    -- link item_arrays to defaultsets
-    for entity_name, set in pairs(global.defaultsets) do
-      for i = 1, #set do
-        if type(set[i]) == "string" and global.item_arrays[set[i]] then
-          set[i] = global.item_arrays[set[i]]
-        end
-      end
-    end
-    
+    global.item_arrays = item_arrays
+    global.defaultsets = defaultsets
+    backup_log[#backup_log + 1] = game.tick .. " Backup loaded."
   end,
   
-  updateFuelArrays = function()
-    local all = global.item_arrays["fuels-all"]
-    local high = global.item_arrays["fuels-high"]
+  updateFuelArrays = function(tbl)
+    local all = tbl["fuels-all"]
+    local high = tbl["fuels-high"]
     
     if all or high then
       local MINfuel_value = 8000000 -- Joules
