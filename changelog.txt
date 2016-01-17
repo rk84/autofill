@@ -1,3 +1,8 @@
+1.3.11
+-fuel_value of coal is used instead of static 8 MJ value to find high fuels.
+-Added Aircraft mod (unofficial)
+-Added "ammo-rockets" -item array
+
 1.3.10
 -Added loader.extendItemArray. Use to add items to exiting arrays.
 -Added wildcard character * that can be used in set definitions. if entity name has * character(s) the name is convert to pattern.

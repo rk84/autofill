@@ -169,7 +169,12 @@ loader = {
     local high = tbl["fuels-high"]
     
     if all or high then
-      local MINfuel_value = 8000000 -- Joules
+      local MINfuel_value = 8000000 -- Joules.
+      local coal = game.item_prototypes.coal
+      if coal and coal.fuel_value > 0 then
+        MINfuel_value = coal.fuel_value
+      end
+      
       for name, item in pairs(game.item_prototypes) do
         if item.fuel_value > 0 then
           if all then

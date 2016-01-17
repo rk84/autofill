@@ -12,6 +12,8 @@ loader.addSets "settings/color-coding-sets"
 loader.extendItemArray "settings/ammobox-items"
 loader.addSets "settings/ammobox-sets"
 loader.addSets "settings/yuoki-ind-sets"
+loader.extendItemArray "settings/aircraft-items"
+loader.addSets "settings/aircraft-sets"
 
 
 
