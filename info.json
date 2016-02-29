@@ -1,9 +1,10 @@
 {
   "name": "autofill",
-  "version": "1.3.11",
+  "version": "1.3.12",
   "title": "Autofill",
   "author": "rk84",
   "contact": "www.factorioforums.com",
   "description": "Autofill inserts stuff inside stuff on build.",
-  "dependencies": ["base"]
+  "dependencies": ["base"],
+  "license": "MIT"
 } 

@@ -1,3 +1,7 @@
+1.3.12
+-loader.extendItemArray overwriting multiple extensions -fix
+-added license to info.json
+
 1.3.11
 -fuel_value of coal is used instead of static 8 MJ value to find high fuels.
 -Added Aircraft mod (unofficial)

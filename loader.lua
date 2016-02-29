@@ -20,11 +20,19 @@ loader = {
   extendItemArray = function(path)
     local tbl = require(path)
     for name, array in pairs(tbl) do
-      if item_arrays_backup[name] then
-        extension_items_backup[name] = array
+    
+      if item_arrays_backup[name] and type(array) == "table" then
+      
+        if extension_items_backup[name] then
+          extension_items_backup[name][#extension_items_backup[name]+1] = array
+        else
+          extension_items_backup[name] = {array}
+        end
+
       else
         backup_log[#backup_log + 1] = "Array '" .. name .. "' not found in '" .. path .. "'"
       end
+      
     end
   end,
 
@@ -76,21 +84,27 @@ loader = {
     end
     
     -- Remove extensions that has false itemnames and lacks of target array
-    for name, array in pairs(extension_items) do
+    local array
+    for name, modules in pairs(extension_items) do
       if item_arrays[name] then
-        for i=1, #array do
-          if type(array[i]) == "table" then
-            if game.item_prototypes[array[i][1]] == nil then
-              backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
-              extension_items[name] = nil
-              break
+        for j=#modules, 1, -1 do
+          array = modules[j]
+          for i=1, #array do
+          
+            if type(array[i]) == "table" then
+              if game.item_prototypes[array[i][1]] == nil then
+                backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
+                table.remove(modules, j)
+                break
+              end
+            else
+              if game.item_prototypes[array[i]] == nil then
+                backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
+                table.remove(modules, j)
+                break
+              end
             end
-          else
-            if game.item_prototypes[array[i]] == nil then
-              backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
-              extension_items[name] = nil
-              break
-            end
+            
           end
         end
       else -- lacks target array
@@ -101,16 +115,20 @@ loader = {
     
     -- Add item extensions to item_arrays
     local tbl = table
-    for name, array in pairs(extension_items) do
-      for i=1, #array do
-        if type(array[i]) == "table" then -- has index in second cell
-          if array[i][2] < 0 then -- negative index should be handled same way as with find method
-            tbl.insert(item_arrays[name], #item_arrays[name] + array[i][2] + 2, array[i][1])
-          elseif array[i][2] > 0 then
-            tbl.insert(item_arrays[name], array[i][2], array[i][1])
+    local array
+    for name, modules in pairs(extension_items) do
+      for j=1, #modules do
+        array = modules[j]
+        for i=1, #array do
+          if type(array[i]) == "table" then -- has index in second cell
+            if array[i][2] < 0 then -- negative index should be handled same way as with find method
+              tbl.insert(item_arrays[name], #item_arrays[name] + array[i][2] + 2, array[i][1])
+            elseif array[i][2] > 0 then
+              tbl.insert(item_arrays[name], array[i][2], array[i][1])
+            end
+          else -- no index defined add last
+            item_arrays[name][#item_arrays[name] + 1] = array[i]
           end
-        else -- no index defined add last
-          item_arrays[name][#item_arrays[name] + 1] = array[i]
         end
       end
     end
