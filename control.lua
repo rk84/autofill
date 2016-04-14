@@ -14,6 +14,7 @@ loader.addSets "settings/ammobox-sets"
 loader.addSets "settings/yuoki-ind-sets"
 loader.extendItemArray "settings/aircraft-items"
 loader.addSets "settings/aircraft-sets"
+loader.addSets "settings/5dim-sets"
 
 
 
