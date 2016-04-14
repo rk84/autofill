@@ -403,10 +403,10 @@ remote.add_interface(MOD.IF,
     end
   end,
   
-  globalToFile = function(key)
+  logGlobal = function(key)
     key = key or "global"
     if _G[key] then
-      printToFile( serpent.block(_G[key]), key )
+      log( serpent.block(_G[key]) )
     else
       globalPrint("Global not found.")
     end

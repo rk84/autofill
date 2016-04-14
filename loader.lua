@@ -183,6 +183,8 @@ loader = {
   end,
   
   updateFuelArrays = function(tbl)
+    tbl["fuels-all"] = {}
+    tbl["fuels-high"] = {}
     local all = tbl["fuels-all"]
     local high = tbl["fuels-high"]
     

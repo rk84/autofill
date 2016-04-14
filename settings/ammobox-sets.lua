@@ -3,5 +3,5 @@
 --
 
 return {
-  ["gun-turret-2"]= {group="turrets", limits= {10}, "ammo-bullets" }
+  ["ammobox-gun-turret-2"]= {group="turrets", limits= {10}, "ammo-bullets" }
 }
