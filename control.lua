@@ -1,4 +1,3 @@
-require "defines"
 require "util"
 
 MOD = { NAME = "Autofill", IF = "af" }
