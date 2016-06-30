@@ -41,7 +41,7 @@ script.on_init(function()
 end)
 
 script.on_event(defines.events.on_built_entity, function(event)
-  local player = game.get_player(event.player_index)
+  local player = game.players[event.player_index]
   local global = global
   if global.personalsets[player.name] and global.personalsets[player.name].active then
     local fillset = global.personalsets[player.name][event.created_entity.name] or global.defaultsets[event.created_entity.name]
@@ -52,7 +52,7 @@ script.on_event(defines.events.on_built_entity, function(event)
 end)
 
 script.on_event(defines.events.on_player_created, function(event)
-  local username = game.get_player(event.player_index).name
+  local username = game.players[event.player_index].name
   if global.personalsets[username] == nil then
     global.personalsets[username] = { active = true }
   end
