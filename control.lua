@@ -330,7 +330,7 @@ function printToFile(line, path)
 end
 
 function text(line, pos, colour) --colour as optional
-  local surface = game.get_surface(1)
+  local surface = game.surfaces[1]
   if colour == nil then
     surface.create_entity({name="flying-text", position=pos, text=line})
   else
