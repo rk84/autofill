@@ -103,18 +103,22 @@ function autoFill(entity, player, fillset)
       end
     else --Pick first available item
       for j = 1, #array do
-        if maininv.get_item_count(array[j]) > 0 or vehicleinv and vehicleinv.get_item_count(array[j]) > 0 then
-          item = array[j]
-          count = maininv.get_item_count(array[j])
-          count = not vehicleinv and count or count + vehicleinv.get_item_count(array[j])
-          break
+        if game.item_prototypes[array[j]] then
+          if maininv.get_item_count(array[j]) > 0 or vehicleinv and vehicleinv.get_item_count(array[j]) > 0 then
+            item = array[j]
+            count = maininv.get_item_count(array[j])
+            count = not vehicleinv and count or count + vehicleinv.get_item_count(array[j])
+            break
+          end
         end
       end
     end
 
     if not item or count < 1 then
-      text({"autofill.out-of-item", game.item_prototypes[array[1]].localised_name }, textpos, color)
-      textpos.y = textpos.y + 1
+      if array[1] ~= nil and game.item_prototypes[array[1]] then
+        text({"autofill.out-of-item", game.item_prototypes[array[1]].localised_name }, textpos, color)
+        textpos.y = textpos.y + 1
+      end
     else
       -- Divide stack between group (only items in quickbar are part of group)
       if fillset.group then
