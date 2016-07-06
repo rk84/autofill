@@ -16,6 +16,9 @@ return {
   ["bob-sniper-turret-1"] = turretFillSet,
   ["bob-sniper-turret-2"] = turretFillSet,
   ["bob-sniper-turret-3"] = turretFillSet,
+  ["tank-2"] ={priority={1}, slots={3,1,1,1}, "fuels-all", "ammo-bullets", "ammo-shells", "ammo-artillery" },
+  ["tank-3"] ={priority={1}, slots={4,1,1,1}, "fuels-all", "ammo-bullets", "ammo-battery", "ammo-shells", "ammo-artillery" },
+  --["tank"] = {priority=order.default, slots={2,1,1}, "fuels-all", "ammo-bullets", "ammo-shells" },
 
   -- boblogistics
   ["long-handed-burner-inserter"] = {group="burners", limits={1}, "fuels-high"},

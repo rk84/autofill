@@ -5,7 +5,7 @@
 return {
   ["ammo-bullets"] = {"piercing-rounds-magazine", "firearm-magazine"},
   ["ammo-rockets"] = {"rocket", "explosive-rocket"},
-  ["ammo-shells"] = {"cannon-shell"},
+  ["ammo-shells"] = {"explosive-cannon-shell", "cannon-shell"},
   ["fuels-all"] = {}, -- fuel tables not filled here because lack of "game" in this scope.
   ["fuels-high"] = {}
 }

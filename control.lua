@@ -5,15 +5,18 @@ MOD = { NAME = "Autofill", IF = "af" }
 require "loader"
 loader.addItemArray "settings/vanilla-items"
 loader.addSets "settings/vanilla-sets"
-loader.addSets "settings/bob-sets"
+loader.addItemArray "settings/bob-newitems" --bobwarfare added Artillery and Laser Ammo
+loader.extendItemArray "settings/bob-items" -- Bob Warfare Bullets, Cannon Shells - TODO have it prio extended items
+loader.addSets "settings/bob-sets" -- Bobwarfare added tanks 2 and 3
 loader.addSets "settings/farl-sets"
-loader.addSets "settings/color-coding-sets"
 loader.extendItemArray "settings/ammobox-items"
 loader.addSets "settings/ammobox-sets"
 loader.addSets "settings/yuoki-ind-sets"
+loader.addSets "settings/shuttle-train-sets"  -- Autofill for shuttle trains
 loader.extendItemArray "settings/aircraft-items"
 loader.addSets "settings/aircraft-sets"
 loader.addSets "settings/5dim-sets"
+loader.extendItemArray "settings/up-items" -- Uranium Power Bullets and Cannon Shells -UNTESTED but based on the same concepts as the other additions so it should work.
 
 
 

@@ -1,3 +1,14 @@
+1.3.15
+-shuttle train support
+-removed color coding locos since it is not needed for factorio .13
+-Added support for bobs ammos, tanks, artillery, laser batterys, cannon shells
+-added support for uranium power
+-Existing autofill users will have to run /c remote.call("af", "resetMod") to add in all of the changes. This will erase any sets you have manually added so use with caution.
+
+1.3.14 - jakimfett
+-Changes from jakimfett to make it compatible with factorio .13
+-Add checks for valid item before attempting to autofill
+
 1.3.13
 -fixed fuel item updating
 -ammobox turret name change
