@@ -1,3 +1,14 @@
+1.3.16
+-Hotkey support, hover over an entity and CTRL-F to autofill
+
+1.3.16 Current known issues:
+Bob's Batteries are not getting inserted in tank-3 and OMG I can't figure out why
+Removing a mod which has a fuel item in the autofill table will cause crash on next autofill. /c remote.call("af","resetUser") might fix for now.
+Ammo is not prioritized correctly for bob's if you have piercing rounds and nuke bullets in your inventory it will prefer the piercing rounds.
+No migration scripts
+Hotkey Filling will not fill fuel if fuel in inv has a higher value then fuel in entity
+Hotkey Filling will fill trunk space if vehicle is full
+
 1.3.15
 -shuttle train support
 -removed color coding locos since it is not needed for factorio .13

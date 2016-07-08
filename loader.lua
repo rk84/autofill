@@ -4,11 +4,13 @@ local defaultsets_backup = {}
 local wildcardsets_backup = {}
 local backup_log = {MOD.NAME .." loader log:"}
 
+
 loader = {
   addItemArray = function(path)
     local tbl = require(path)
     for name, array in pairs(tbl) do
-      if item_arrays_backup[name] == nil then
+	backup_log[#backup_log + 1] = "ADDING '" .. name .. " "..serpent.dump(line, {name="array", comment=false, sparse=false, sortkeys=true}) .."' in '" .. path .. "'"
+	    if item_arrays_backup[name] == nil then
         item_arrays_backup[name] = array
       else
         --item_arrays_backup[name] = array

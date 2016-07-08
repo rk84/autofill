@@ -61,9 +61,47 @@ script.on_event(defines.events.on_player_created, function(event)
   end
 end)
 
+script.on_event("autofill-entity", function(event)
+  local selection = game.players[event.player_index].selected
+  local player = game.players[event.player_index]
+  local global = global
+  if global.personalsets[player.name] and global.personalsets[player.name].active and selection then
+    local fillset = global.personalsets[player.name][selection.name] or global.defaultsets[selection.name]
+    if fillset ~= 0 and fillset ~= nil then 
+      autoFill(selection, player, fillset)
+    end
+  end
+end)
+
 --
 --Funtions
 --
+function printToFile(line, title, path)
+  path = path or "log"
+  title = title or "FALSE"
+  path = table.concat({ MOD.IF, "/", path, ".lua" })
+  local msg
+  if type(line) == "string" then
+    msg = line
+  else
+    msg = serpent.dump(line, {name=title, comment=false, sparse=false, sortkeys=true})
+  end
+  game.write_file( path,  msg.."\n", true)
+end
+
+function debugDump(var, force)
+  if false or force then
+    for _, player in pairs(game.players) do
+      local msg
+      if type(var) == "string" then
+        msg = var
+      else
+        msg = serpent.dump(var, {name="var", comment=false, sparse=false, sortkeys=true})
+      end
+      player.print(msg)
+    end
+  end
+end
 
 function autoFill(entity, player, fillset)
   local textpos = entity.position
@@ -330,11 +368,13 @@ function isValidUser(name)
 end
 
 
+--[[
 function printToFile(line, path)
   path = path or "log"
   path = table.concat({ MOD.IF, "/", path, ".txt" })
   game.makefile( path,  line)
 end
+--]]
 
 function text(line, pos, colour) --colour as optional
   local surface = game.surfaces[1]
