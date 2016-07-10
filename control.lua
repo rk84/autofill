@@ -11,7 +11,9 @@ loader.addSets "settings/bob-sets" -- Bobwarfare added tanks 2 and 3
 loader.addSets "settings/farl-sets"
 loader.extendItemArray "settings/ammobox-items"
 loader.addSets "settings/ammobox-sets"
-loader.addSets "settings/yuoki-ind-sets"
+loader.addItemArray "settings/yuoki-ind-newitems" --New Ammo Catergories for YI
+loader.extendItemArray "settings/yuoki-ind-items" -- YI Bullets
+loader.addSets "settings/yuoki-ind-sets" -- YI Item Sets
 loader.addSets "settings/shuttle-train-sets"  -- Autofill for shuttle trains
 loader.extendItemArray "settings/aircraft-items"
 loader.addSets "settings/aircraft-sets"
@@ -36,7 +38,7 @@ local order = {
 --
 
 script.on_configuration_changed(function()
-  initMod()
+  initMod(true)
 end)
 
 script.on_init(function()
@@ -259,7 +261,7 @@ function initMod(reset)
     
   else
     loader.updateFuelArrays(global.item_arrays)
-  end
+	end
 end
 
 function isValidEntity(name)
