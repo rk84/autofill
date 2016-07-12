@@ -6,6 +6,6 @@
   "author": "rk84",
   "contact": "www.factorioforums.com",
   "description": "Autofill inserts items (ammo,fuel,etc) inside entities when placing them in the world.",
-  "dependencies": ["base >= 0.13.0", "? bobwarfare >= 0.13.0"],
+  "dependencies": ["base >= 0.13.0"],
   "license": "MIT"
 } 
