@@ -5,21 +5,17 @@ MOD = { NAME = "Autofill", IF = "af" }
 require "loader"
 loader.addItemArray "settings/vanilla-items"
 loader.addSets "settings/vanilla-sets"
+loader.extendItemArray "settings/generic-items"
+loader.addItemArray "settings/generic-newitems"
+loader.addSets "settings/generic-sets"
 loader.addItemArray "settings/bob-newitems" --bobwarfare added Artillery and Laser Ammo
 loader.extendItemArray "settings/bob-items" -- Bob Warfare Bullets, Cannon Shells - TODO have it prio extended items
 loader.addSets "settings/bob-sets" -- Bobwarfare added tanks 2 and 3
-loader.addSets "settings/farl-sets"
-loader.extendItemArray "settings/ammobox-items"
-loader.addSets "settings/ammobox-sets"
 loader.addItemArray "settings/yuoki-ind-newitems" --New Ammo Catergories for YI
 loader.extendItemArray "settings/yuoki-ind-items" -- YI Bullets
 loader.addSets "settings/yuoki-ind-sets" -- YI Item Sets
-loader.addSets "settings/shuttle-train-sets"  -- Autofill for shuttle trains
-loader.extendItemArray "settings/aircraft-items"
 loader.addSets "settings/aircraft-sets"
 loader.addSets "settings/5dim-sets"
-loader.extendItemArray "settings/up-items" -- Uranium Power Bullets and Cannon Shells -UNTESTED but based on the same concepts as the other additions so it should work.
-
 
 
 --flying text colors
@@ -38,7 +34,7 @@ local order = {
 --
 
 script.on_configuration_changed(function()
-  initMod(true)
+  initMod()
 end)
 
 script.on_init(function()
@@ -49,10 +45,11 @@ script.on_event(defines.events.on_built_entity, function(event)
   local player = game.players[event.player_index]
   local global = global
   if global.personalsets[player.name] and global.personalsets[player.name].active then
-    local fillset = global.personalsets[player.name][event.created_entity.name] or global.defaultsets[event.created_entity.name]
+	--globalPrint(global.defaultsets[event.created_entity.name])
+	local fillset = global.personalsets[player.name][event.created_entity.name] or global.defaultsets[event.created_entity.name]
     if fillset ~= 0 and fillset ~= nil then 
       autoFill(event.created_entity, player, fillset)
-    end
+	end
   end
 end)
 
@@ -240,11 +237,19 @@ end
 
 function globalPrint(msg)
   local players = game.players
-  msg = { "autofill.msg-template", msg }
-  for i=1, #players do
-    players[i].print(msg)
+  if type(msg) == "string" then
+    output= msg
+  else
+    output=serpent.dump(msg, {name="var", comment=false, sparse=false, sortkeys=true})
   end
+   --msg = { "autofill.msg-template", msg }
+  for i=1, #players do
+    players[i].print(output)
+  end
+  printToFile(output)
 end
+
+
 
 function initMod(reset)
   if not global.defaultsets or not global.personalsets or not global.item_arrays or reset then
@@ -335,7 +340,7 @@ end
 function printToFile(line, path)
   path = path or "log"
   path = table.concat({ MOD.IF, "/", path, ".txt" })
-  game.makefile( path,  line)
+  game.write_file( path, line.."\n\n", true)
 end
 
 function text(line, pos, colour) --colour as optional
