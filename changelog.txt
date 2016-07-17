@@ -1,3 +1,6 @@
+CurrentAlpha
+Bobs batteries load into tank 3 correctly, oops typo
+
 1.3.17
 Combat Units Mod added to defaultsets
 Bulldozer added to defaultsets - Created Generic setlist
