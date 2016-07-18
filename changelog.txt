@@ -1,13 +1,17 @@
-1.3.16a
+CurrentAlpha
 -Hotkey support, hover over an entity and CTRL-F to autofill
+-Current known issues:
+-Removing a mod which has a fuel item in the autofill table will cause crash on next autofill. /c remote.call("af","resetUser") might fix for now.
+-Need better prioritization on ammo selection
+-Hotkey Filling will fill trunk space if vehicle is full
+-Bobs batteries load into tank 3 correctly, oops typo
+-Angelrefining burner crusher
+-Existing autofill users will have to run /c remote.call("af", "resetMod") to add in all of the changes. This will erase any sets you have manually added so use with caution.
 
-1.3.16a Current known issues:
-Bob's Batteries are not getting inserted in tank-3 and OMG I can't figure out why
-Removing a mod which has a fuel item in the autofill table will cause crash on next autofill. /c remote.call("af","resetUser") might fix for now.
-Ammo is not prioritized correctly for bob's if you have piercing rounds and nuke bullets in your inventory it will prefer the piercing rounds.
-No migration scripts
-Hotkey Filling will not fill fuel if fuel in inv has a higher value then fuel in entity
-Hotkey Filling will fill trunk space if vehicle is full
+1.3.17
+-Combat Units Mod added to defaultsets
+-Bulldozer added to defaultsets - Created Generic setlist
+-Cleanup and condense default settings list
 
 1.3.16
 -Add YI defaultsets
