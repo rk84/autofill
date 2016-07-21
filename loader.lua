@@ -9,7 +9,7 @@ loader = {
   addItemArray = function(path)
     local tbl = require(path)
     for name, array in pairs(tbl) do
-	backup_log[#backup_log + 1] = "ADDING '" .. name .. " "..serpent.dump(line, {name="array", comment=false, sparse=false, sortkeys=true}) .."' in '" .. path .. "'"
+	backup_log[#backup_log + 1] = "ADDING '" .. name .. "' in '" .. path .. "'"
 	    if item_arrays_backup[name] == nil then
         item_arrays_backup[name] = array
       else
@@ -79,7 +79,7 @@ loader = {
       for i=1, #array do
         if game.item_prototypes[array[i]] == nil then
           backup_log[#backup_log + 1] = "Item array '" .. name .. "' removed"
-          item_arrays[name] = nil
+		  item_arrays[name] = nil
           break
         end
       end
@@ -216,5 +216,6 @@ loader = {
     end
     table.sort(all, fuelHighToLow)
     table.sort(high, fuelHighToLow)
+	backup_log[#backup_log + 1] = "Updating Fuel Arrays"
   end
 }

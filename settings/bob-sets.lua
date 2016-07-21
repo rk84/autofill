@@ -7,6 +7,9 @@ return {
   ["boiler-3"] = boilerFillSet,
   ["boiler-2"] = boilerFillSet,
   ["boiler-4"] = boilerFillSet,
+  
+  ["mixing-furnace"] = boilerFillSet,
+  ["chemical-boiler"] = boilerFillSet,
 
   -- bobwarfare
   ["bob-gun-turret-2"]    = turretFillSet,
@@ -20,7 +23,7 @@ return {
   ["tank-3"] ={priority=2, slots={4,1,1,1}, "fuels-all", "ammo-bullets", "ammo-battery", "ammo-shells", "ammo-artillery" },
   
   -- boblogistics
-  ["long-handed-burner-inserter"] = {group="burners", limits={1}, "fuels-high"},
+  ["long-handed-burner-inserter"] = {group="burners", limits={1}, "fuels-high"},  --possibly not needed with next bob/log update
   ["diesel-locomotive-2"]        = locomotiveFillSet,
   ["diesel-locomotive-3"]        = locomotiveFillSet,
   ["armoured-diesel-locomotive"] = locomotiveFillSet

@@ -5,6 +5,7 @@ CurrentAlpha
 -Need better prioritization on ammo selection
 -Hotkey Filling will fill trunk space if vehicle is full
 -Bobs batteries load into tank 3 correctly, oops typo
+-Added bobs metal mixer and chem mixer
 -Angelrefining burner crusher
 -Existing autofill users will have to run /c remote.call("af", "resetMod") to add in all of the changes. This will erase any sets you have manually added so use with caution.
 

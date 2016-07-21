@@ -34,18 +34,17 @@ local order = {
 --
 
 script.on_configuration_changed(function()
-  initMod()
+  initMod()  --Should fail and only update fuels
 end)
 
 script.on_init(function()
-  initMod()
+  initMod(true)
 end)
 
 script.on_event(defines.events.on_built_entity, function(event)
   local player = game.players[event.player_index]
   local global = global
   if global.personalsets[player.name] and global.personalsets[player.name].active then
-	--globalPrint(global.defaultsets[event.created_entity.name])
 	local fillset = global.personalsets[player.name][event.created_entity.name] or global.defaultsets[event.created_entity.name]
     if fillset ~= 0 and fillset ~= nil then 
       autoFill(event.created_entity, player, fillset)
@@ -58,6 +57,7 @@ script.on_event(defines.events.on_player_created, function(event)
   if global.personalsets[username] == nil then
     global.personalsets[username] = { active = true }
   end
+  log("AutoFill: user ".. username .. " Created")
 end)
 
 script.on_event("autofill-entity", function(event)
