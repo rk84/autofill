@@ -34,7 +34,7 @@ local order = {
 --
 
 script.on_configuration_changed(function()
-  initMod()  --Should fail and only update fuels
+  initMod(true)  --TODO needs to be changed to only update sets
 end)
 
 script.on_init(function()
@@ -57,7 +57,7 @@ script.on_event(defines.events.on_player_created, function(event)
   if global.personalsets[username] == nil then
     global.personalsets[username] = { active = true }
   end
-  log("AutoFill: user ".. username .. " Created")
+  --log("AutoFill: user ".. username .. " Created")
 end)
 
 script.on_event("autofill-entity", function(event)
@@ -301,9 +301,10 @@ function initMod(reset)
     end
     
     global.has_init = true
-    
+    log("Autofill: INIT - Reset all to default")
   else
     loader.updateFuelArrays(global.item_arrays)
+	log("AutoFill: Updated fuel arrays")
 	end
 end
 

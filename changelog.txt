@@ -1,13 +1,13 @@
-CurrentAlpha
+1.3.18
+-Temporary work around to mod changes causing crash if the item no longer exists.
 -Hotkey support, hover over an entity and CTRL-F to autofill
 -Current known issues:
--Removing a mod which has a fuel item in the autofill table will cause crash on next autofill. /c remote.call("af","resetUser") might fix for now.
 -Need better prioritization on ammo selection
 -Hotkey Filling will fill trunk space if vehicle is full
 -Bobs batteries load into tank 3 correctly, oops typo
 -Added bobs metal mixer and chem mixer
 -Angelrefining burner crusher
--Existing autofill users will have to run /c remote.call("af", "resetMod") to add in all of the changes. This will erase any sets you have manually added so use with caution.
+-if you have any personal sets they will get removed every upgrade/mod change until I can add in better logic checking for sets!
 
 1.3.17
 -Combat Units Mod added to defaultsets
