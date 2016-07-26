@@ -1,12 +1,12 @@
 {
   "name": "autofill",
-  "version": "1.3.18",
+  "version": "1.4.0",
   "factorio_version": "0.13",
   "title": "Autofill",
-  "author": "rk84",
+  "author": "rk84, Nexela",
   "contact": "www.factorioforums.com",
   "homepage": "https://forums.factorio.com/viewtopic.php?f=92&t=1612",
   "description": "Autofill inserts items (ammo,fuel,etc) inside entities when placing them in the world.",
-  "dependencies": ["base >= 0.13.0"],
+  "dependencies": ["base >= 0.13.9"],
   "license": "MIT"
-} 
+}
