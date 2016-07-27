@@ -3,5 +3,6 @@
 --
 
 return {
-["combat-units"] = {"destroyer-unit-ammo", "defender-unit-ammo", "distractor-unit-ammo"} --Combat Units
+["combat-units"] = {"destroyer-unit-ammo", "defender-unit-ammo", "distractor-unit-ammo"}, --Combat Units
+["mo-ammo-goliath"] = {"mega-cannon-shell"} --MoMods
 }

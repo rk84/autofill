@@ -1,3 +1,9 @@
+1.4.1 - Even More Tanks
+-More safety checks for when mods are removed
+-Oooops fixed and some temporary logic.
+-Added Tankwerks, MoCombat, Supertank, KSpower, Military5, IncindiaryMunitions, Artillery.
+-TODO re-check defaults when loading new mods.
+
 1.4.0
 -New Hotkey for turning fill limits on and off
 -default support for Advanced Tanks, GImprovements
@@ -50,7 +56,7 @@
 1.3.10
 -Added loader.extendItemArray. Use to add items to exiting arrays.
 -Added wildcard character * that can be used in set definitions. if entity name has * character(s) the name is convert to pattern.
- * are changed to .+ and - are changed to %- 
+ * are changed to .+ and - are changed to %-
 -Added AmmoBox turrets and ammoboxes
 -Added color coding locos
 -Added Yuoki's gun turrets

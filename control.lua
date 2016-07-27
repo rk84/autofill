@@ -16,7 +16,7 @@ loader.extendItemArray "settings/yuoki-ind-items" -- YI Bullets
 loader.addSets "settings/yuoki-ind-sets" -- YI Item Sets
 loader.addSets "settings/aircraft-sets"
 loader.addSets "settings/5dim-sets"
-loader.extendItemArray  "settings/at-items" -- Advanced Tanks Mod
+loader.extendItemArray  "settings/at-items" -- Advanced Tanks and Tankwerkz Mod
 loader.addItemArray  "settings/at-newitems"
 loader.addSets "settings/at-sets"
 
@@ -130,34 +130,38 @@ function autoFill(entity, player, fillset)
 
   local quickbar = player.get_inventory(defines.inventory.player_quickbar)
   local array, item, count, groupsize, slots, totalitemcount, color, inserted, removed
-  for i=1, #fillset do
+  for i=1, #fillset do  --? Item prototype check here?
     array = fillset[i]
     item = false
     count = 0
     color = RED
 
-    if fillset.priority == order.itemcount then -- Pick item with highest count
-      for j = 1, #array do
-        if vehicleinv then
-          if maininv.get_item_count(array[j]) + vehicleinv.get_item_count(array[j]) > count then
-            item = array[j]
-            count = maininv.get_item_count(array[j]) + vehicleinv.get_item_count(array[j])
-          end
-        else
-          if maininv.get_item_count(array[j]) > count then
-            item = array[j]
-            count = maininv.get_item_count(array[j])
-          end
-        end
-      end
+	if fillset.priority == order.itemcount then -- Pick item with highest count
+		for j = 1, #array do
+		if game.item_prototypes[array[j]] then
+			if vehicleinv then
+				if maininv.get_item_count(array[j]) + vehicleinv.get_item_count(array[j]) > count then
+					item = array[j]
+					count = maininv.get_item_count(array[j]) + vehicleinv.get_item_count(array[j])
+					end
+					else
+					if maininv.get_item_count(array[j]) > count then
+					item = array[j]
+					count = maininv.get_item_count(array[j])
+				end
+			end
+		end
+	end
     elseif fillset.priority == order.opposite then --Pick last available item
       for j = #array, 1, -1 do
+      if game.item_prototypes[array[j]] then
         if maininv.get_item_count(array[j]) > 0 or vehicleinv and vehicleinv.get_item_count(array[j]) > 0 then
           item = array[j]
           count = maininv.get_item_count(array[j])
           count = not vehicleinv and count or count + vehicleinv.get_item_count(array[j])
           break
         end
+       end
       end
     else --Pick first available item
       for j = 1, #array do
@@ -199,11 +203,15 @@ function autoFill(entity, player, fillset)
 
         totalitemcount = 0
         for j=1, #array do
-          totalitemcount = totalitemcount + maininv.get_item_count(array[j])
+			if game.item_prototypes[array[j]] then
+				totalitemcount = totalitemcount + maininv.get_item_count(array[j])
+			end
         end
         if vehicleinv then
           for j=1, #array do
-            totalitemcount = totalitemcount + vehicleinv.get_item_count(array[j])
+			if game.item_prototypes[array[j]] then
+				totalitemcount = totalitemcount + vehicleinv.get_item_count(array[j])
+			end
           end
         end
         count = math.max( 1, math.min( count, math.floor(totalitemcount / groupsize) ) )
@@ -310,13 +318,13 @@ end
 
 
 
-function initMod(reset,keeppersonal)
+function initMod(reset,update)
   if not global.defaultsets or not global.personalsets or not global.item_arrays or reset then
     global = {} -- Clears global
 
     loader.loadBackup()
 
-    if not keeppersonal or reset then
+    if not update or reset then
 		global.personalsets = {}
 		for k, player in pairs(game.players) do
 		  global.personalsets[player.name] = { active = true, uselimits=true }
@@ -324,10 +332,14 @@ function initMod(reset,keeppersonal)
     end
 
     global.has_init = true
-    log("Autofill: INIT - Reset all to default")
-  else
-    loader.updateFuelArrays(global.item_arrays)
-	log("AutoFill: Updated fuel arrays")
+    log("Autofill: Initilized")
+	else
+		if update then
+			loader.loadBackup()
+			log("AutoFill: Defaults Updated")
+		else
+			loader.updateFuelArrays(global.item_arrays)
+		end
 	end
 end
 

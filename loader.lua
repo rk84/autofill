@@ -18,13 +18,13 @@ loader = {
       end
     end
   end,
-  
+
   extendItemArray = function(path)
     local tbl = require(path)
     for name, array in pairs(tbl) do
-    
+
       if item_arrays_backup[name] and type(array) == "table" then
-      
+
         if extension_items_backup[name] then
           extension_items_backup[name][#extension_items_backup[name]+1] = array
         else
@@ -34,7 +34,7 @@ loader = {
       else
         backup_log[#backup_log + 1] = "Array '" .. name .. "' not found in '" .. path .. "'"
       end
-      
+
     end
   end,
 
@@ -61,7 +61,7 @@ loader = {
       end
     end
   end,
-  
+
   getBackupLog = function()
     return backup_log
   end,
@@ -78,21 +78,32 @@ loader = {
     for name, array in pairs(item_arrays) do
       for i=1, #array do
         if game.item_prototypes[array[i]] == nil then
-          backup_log[#backup_log + 1] = "Item array '" .. name .. "' removed"
+          backup_log[#backup_log + 1] = "Item array '" .. name .. ":" .. array[i] .. "' removed"
 		  item_arrays[name] = nil
           break
         end
       end
     end
-    
+
     -- Remove extensions that has false itemnames and lacks of target array
     local array
     for name, modules in pairs(extension_items) do
       if item_arrays[name] then
         for j=#modules, 1, -1 do
           array = modules[j]
+				--Start temp fix for generic lists
+				if type(array) == "table" then
+					for num=#array, 1, -1 do
+						if game.item_prototypes[array[num]] == nil then
+							backup_log[#backup_log + 1] = "REMOVED " .. name .." : " .. array[num]
+							table.remove(array, num)
+							--log(serpent.block(array))
+						end
+					end
+				end
+				--End temp fix for generic lists
+
           for i=1, #array do
-          
             if type(array[i]) == "table" then
               if game.item_prototypes[array[i][1]] == nil then
                 backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
@@ -101,12 +112,12 @@ loader = {
               end
             else
               if game.item_prototypes[array[i]] == nil then
-                backup_log[#backup_log + 1] = "Extension for array '" .. name .. "' removed"
+                backup_log[#backup_log + 1] = "Extension for array '" .. name .. ":" .. array[i] .. "' removed"
                 table.remove(modules, j)
                 break
               end
             end
-            
+
           end
         end
       else -- lacks target array
@@ -114,7 +125,7 @@ loader = {
         extension_items[name] = nil
       end
     end
-    
+
     -- Add item extensions to item_arrays
     local tbl = table
     local array
@@ -134,7 +145,7 @@ loader = {
         end
       end
     end
-    
+
     --Pre-search wildcard entity names and add them to defaultsets
     for pattern, set in pairs(wildcardsets) do
       for name, _ in pairs(game.entity_prototypes) do
@@ -143,11 +154,11 @@ loader = {
         end
       end
     end
-    
+
     -- Remove sets with false entity names. Remove invalid items. Link array names to item_arrays
     for name, set in pairs(defaultsets) do
       if game.entity_prototypes[name] then
-      
+
         for i=#set, 1, -1 do
           if type(set[i]) == "string" then
             if game.item_prototypes[set[i]] then
@@ -168,7 +179,7 @@ loader = {
             end
           end
         end
-      
+
         if #set == 0 then -- has no items or arrays
           backup_log[#backup_log + 1] = "Empty set '" .. name .. "'. Set removed"
           defaultsets[name] = nil
@@ -178,25 +189,25 @@ loader = {
         defaultsets[name] = nil
       end
     end
-    
+
     global.item_arrays = item_arrays
     global.defaultsets = defaultsets
     backup_log[#backup_log + 1] = game.tick .. " Backup loaded."
   end,
-  
+
   updateFuelArrays = function(tbl)
     tbl["fuels-all"] = {}
     tbl["fuels-high"] = {}
     local all = tbl["fuels-all"]
     local high = tbl["fuels-high"]
-    
+
     if all or high then
       local MINfuel_value = 8000000 -- Joules.
       local coal = game.item_prototypes.coal
       if coal and coal.fuel_value > 0 then
         MINfuel_value = coal.fuel_value
       end
-      
+
       for name, item in pairs(game.item_prototypes) do
         if item.fuel_value > 0 then
           if all then
