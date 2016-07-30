@@ -526,5 +526,16 @@ remote.add_interface(MOD.IF,
         global.personalsets[username] = { active = true }
       end
     end
-  end
+  end,
+
+	setUsage = function(username, toggle)
+		username = isValidUser(username)
+		if username then
+			if global.personalsets[username] then
+				--local oldmode=global.personalsets[username].active
+				global.personalsets[username].active=toggle
+				return not toggle
+			end
+		end
+	end
 })
