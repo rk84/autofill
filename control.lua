@@ -178,7 +178,7 @@ function autoFill(entity, player, fillset)
 
     if not item or count < 1 then
       if array[1] ~= nil and game.item_prototypes[array[1]] then
-        text({"autofill.out-of-item", game.item_prototypes[array[1]].localised_name }, textpos, color)
+        text({"autofill.out-of-item", game.item_prototypes[array[1]].localised_name }, textpos, player.surface, color)
         textpos.y = textpos.y + 1
       end
     else
@@ -257,10 +257,10 @@ function autoFill(entity, player, fillset)
           maininv.remove({name=item, count=inserted})
         end
         if removed then
-          text({"autofill.insertion-from-vehicle", inserted, game.item_prototypes[item].localised_name, removed, game.entity_prototypes[player.vehicle.name].localised_name}, textpos, color)
+          text({"autofill.insertion-from-vehicle", inserted, game.item_prototypes[item].localised_name, removed, game.entity_prototypes[player.vehicle.name].localised_name}, textpos, player.surface, color)
           textpos.y = textpos.y + 1
         else
-          text({"autofill.insertion", inserted, game.item_prototypes[item].localised_name }, textpos, color)
+          text({"autofill.insertion", inserted, game.item_prototypes[item].localised_name }, textpos, player.surface, color)
           textpos.y = textpos.y + 1
         end
       end
@@ -419,8 +419,7 @@ function printToFile(line, path)
 end
 --]]
 
-function text(line, pos, colour) --colour as optional
-  local surface = game.surfaces[1]
+function text(line, pos, surface, colour) --colour as optional
   if colour == nil then
     surface.create_entity({name="flying-text", position=pos, text=line})
   else
