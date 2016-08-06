@@ -37,7 +37,7 @@ local order = {
 --
 
 script.on_configuration_changed(function()
-  initMod(false,true)  --TODO needs to be changed to only update sets
+  initMod(false,true)
 end)
 
 script.on_init(function()
@@ -46,7 +46,7 @@ end)
 
 script.on_event(defines.events.on_built_entity, function(event)
   local player = game.players[event.player_index]
-  if global.personalsets[player.name].uselimits == nil then global.personalsets[player.name].uselimits=true end
+  --if global.personalsets[player.name] and global.personalsets[player.name].uselimits == nil then global.personalsets[player.name].uselimits=true end
   local global = global
   if global.personalsets[player.name] and global.personalsets[player.name].active then
 	local fillset = global.personalsets[player.name][event.created_entity.name] or global.defaultsets[event.created_entity.name]
@@ -88,6 +88,20 @@ script.on_event("autofill-toggle-limits", function(event)
 		end
 		global.personalsets[player.name].uselimits=afplayer.uselimits
 	end
+end)
+
+script.on_event("autofill-toggle-groups", function(event)
+  local player = game.players[event.player_index]
+  local afplayer = global.personalsets[player.name]
+  if afplayer then
+    afplayer.usegroups = not afplayer.usegroups
+    if afplayer.usegroups then
+      player.print({"autofill.toggle-groups-on"})
+    elseif not afplayer.usegroups then
+      player.print({"autofill.toggle-groups-off"})
+    end
+    global.personalsets[player.name].usegroups=afplayer.usegroups
+  end
 end)
 
 --
@@ -183,7 +197,10 @@ function autoFill(entity, player, fillset)
       end
     else
       -- Divide stack between group (only items in quickbar are part of group)
-      if fillset.group then
+      local usegroups = global.personalsets[player.name].usegroups
+      if usegroups == nil then usegroups = true end
+
+      if fillset.group and usegroups then
         if player.cursor_stack.valid_for_read then
           groupsize = player.cursor_stack.count + 1
         else
@@ -325,9 +342,9 @@ function initMod(reset,update)
     loader.loadBackup()
 
     if not update or reset then
-		global.personalsets = {}
-		for k, player in pairs(game.players) do
-		  global.personalsets[player.name] = { active = true, uselimits=true }
+		if reset then global.personalsets = {} end
+    for k, player in pairs(game.players) do
+		  global.personalsets[player.name] = { active = true, uselimits=true, usegroups=true}
 		end
     end
 

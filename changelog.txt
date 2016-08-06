@@ -1,3 +1,10 @@
+1.4.2 - Factorio Extended
+-autofill text surface fix - MagmaMcFry
+-Factorio Extended, Nucular added to default sets
+-Remote interface for turning autofill on or off explicity
+-Hotkey for turning group item division on or off (default Ctrl + Alt + F)
+
+
 1.4.1 - Even More Tanks
 -More safety checks for when mods are removed
 -Oooops fixed and some temporary logic.
