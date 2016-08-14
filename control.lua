@@ -59,7 +59,7 @@ end)
 script.on_event(defines.events.on_player_created, function(event)
   local username = game.players[event.player_index].name
   if global.personalsets[username] == nil then
-    global.personalsets[username] = { active = true, uselimits=true }
+    global.personalsets[username] = { active = true, uselimits=true, usegroups=true }
   end
   --log("AutoFill: user ".. username .. " Created")
 end)

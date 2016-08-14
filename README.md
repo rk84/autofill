@@ -38,11 +38,16 @@ Current Mods with a set enabled by default:
 
 If a mod you like doesn't work out of the box let me know and I will see about adding it, or walk your through how to add it to your personal set using the command line interface.
 
-####Example for making your own set:
+####Examples for making your own set:  
 
-	 remote.call("af", "insertset", "", "car", {{"coal","raw-wood"}, "basic-bullet-magazine"}) -- Creates personal setting for car.
-	 remote.call("af", "insertset", "", "car", 0) -- insert nothing to car. (ignores default setting)
-	 remote.call("af", "insertset", "", "car", nil) -- reset to default setting
+Create  personal setting for car.
+`remote.call("af", "insertset", "", "car",`
+`{{"coal","raw-wood"}, "basic-bullet-magazine"}) `
+
+Insert nothing to car. (ignores default setting)
+`remote.call("af", "insertset", "", "car", 0) `
+reset to default setting
+`remote.call("af", "insertset", "", "car", nil)`
 
 ------
 
