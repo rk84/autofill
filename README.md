@@ -41,9 +41,7 @@ If a mod you like doesn't work out of the box let me know and I will see about a
 ####Examples for making your own set:  
 
 Create  personal setting for car.
-`remote.call("af", "insertset", "", "car",`
-`{{"coal","raw-wood"}, "basic-bullet-magazine"}) `
-
+`remote.call("af", "insertset", "", "car", {{"coal","raw-wood"}, "basic-bullet-magazine"}) `
 Insert nothing to car. (ignores default setting)
 `remote.call("af", "insertset", "", "car", 0) `
 reset to default setting
@@ -62,6 +60,7 @@ reset to default setting
 ####Change Log
 ##Please see the changelog.txt file for more details
 
+* 1.4.3   - Natural Evolution! -Added Biological Bullet from NE-Enemies -minor code fixes
 * 1.4.2   - Factorio Extended - Remote interface changes, Factorio Extended and Nucular added, cleaned up the sets a bit. squashed a few biters, Hotkey for toggling groups.
 * 1.4.1   - The NotEnoughTanks Release - More safety checks for when mods are removed, Added Tankwerks, MoCombat, Supertank, KSpower, Military5, IncindiaryMunitions, Artillery.
 * 1.4.0   - The No Limits release - More Hotkeys, more mods supported by default, General improvements, Advanced Tanks.

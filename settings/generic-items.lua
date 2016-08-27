@@ -15,6 +15,7 @@ local tbl = {
 		"incendiary-bullet-ammo-box", --IncendiaryMunitions, with ammobox
 		"explosive-bullet-magazine", --Mil5
 		"shattering-bullet-magazine", --Factorio Extended
+		"Biological-bullet-magazine", --Natural Evolution - Enemies
 	},
 	shells = {
 		"artilleryshell", --Artillery

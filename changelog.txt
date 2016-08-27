@@ -1,3 +1,7 @@
+1.4.3 - Natural Evolution!
+-Added Biological Bullet from NE-Enemies
+-minor code fixes
+
 1.4.2 - Factorio Extended
 -autofill text surface fix - MagmaMcFry
 -Factorio Extended, Nucular added to default sets
