@@ -1,3 +1,7 @@
+1.4.4 - Factorio .14
+-Thats it, just updated to Factorio .14
+-Download from GITHUB until portal distinguishes between versions.
+
 1.4.3 - Natural Evolution!
 -Added Biological Bullet from NE-Enemies
 -minor code fixes
