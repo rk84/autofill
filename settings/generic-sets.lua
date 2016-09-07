@@ -18,5 +18,6 @@ return {
 	["diesel-locomotive-mk2"]		= {group="locomotives", slots={3}, "fuels-high"}, --Factorio Extended
 	["diesel-locomotive-mk3"]		= {group="locomotives", slots={3}, "fuels-high"}, --Factorio Extended
 	["gun-turret-mk2"]				= {priority=3, group="turrets", limits={10}, "ammo-bullets"}, --Factorio Extended
+	["exploration-vehicle"] = {priority=3, "fuels-all", "ammo-bullets"}, -- Outposts mod
 
 }

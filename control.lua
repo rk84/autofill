@@ -11,6 +11,9 @@ loader.addSets "settings/generic-sets"
 loader.addItemArray "settings/bob-newitems" --bobwarfare added Artillery and Laser Ammo
 loader.extendItemArray "settings/bob-items" -- Bob Warfare Bullets, Cannon Shells - TODO have it prio extended items
 loader.addSets "settings/bob-sets" -- Bobwarfare added tanks 2 and 3
+loader.addItemArray "settings/dytech-newitems"  --Dytech stuff
+loader.extendItemArray "settings/dytech-items"
+loader.addSets "settings/dytech-sets"
 loader.addItemArray "settings/yuoki-ind-newitems" --New Ammo Catergories for YI
 loader.extendItemArray "settings/yuoki-ind-items" -- YI Bullets
 loader.addSets "settings/yuoki-ind-sets" -- YI Item Sets

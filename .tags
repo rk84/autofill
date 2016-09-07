@@ -1,0 +1,32 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+addToDefaultSets 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  addToDefaultSets = function(entityname, set)$/;"	function
+autoFill	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function autoFill(entity, player, fillset)$/;"	function
+debugDump	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function debugDump(var, force)$/;"	function
+getBackupLog 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  getBackupLog = function()$/;"	function
+getDefaultSets	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function getDefaultSets()$/;"	function
+getDefaultSets 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  getDefaultSets = function()$/;"	function
+getItemArray 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  getItemArray = function(name)$/;"	function
+getLiteSets	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function getLiteSets()$/;"	function
+globalPrint	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function globalPrint(msg)$/;"	function
+initMod	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function initMod(reset,update)$/;"	function
+insertset 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  insertset = function(username, entityname, set)--this fuction is for inserting personal sets.$/;"	function
+isValidEntity	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function isValidEntity(name)$/;"	function
+isValidSet	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function isValidSet(set)$/;"	function
+isValidUser	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function isValidUser(name)$/;"	function
+local ok, err 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  local ok, err = pcall(function() vehicleinv = player.vehicle.get_inventory(2) end)$/;"	function
+logGlobal 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  logGlobal = function(key)$/;"	function
+makePersonalLiteSets	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function makePersonalLiteSets()$/;"	function
+printToFile	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function printToFile(line, path)$/;"	function
+printToFile	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function printToFile(line, title, path)$/;"	function
+resetMod 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  resetMod = function()$/;"	function
+resetUser 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  resetUser = function(setname, username)$/;"	function
+setDefaultSets 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  setDefaultSets = function(sets)$/;"	function
+setItemArray 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  setItemArray = function(name, new_array)$/;"	function
+setUsage 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^	setUsage = function(username, toggle)$/;"	function
+text	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^function text(line, pos, surface, colour) --colour as optional$/;"	function
+toggleUsage 	E:\Games\Factorio_Web\Factorio_Experimental\mods.devel\autofill\control.lua	/^  toggleUsage = function(username)$/;"	function
