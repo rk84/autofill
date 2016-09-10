@@ -17,6 +17,7 @@ Toggle dividing fuel/ammo amongst groups of items with CTRL-ALT-F
 
 Current Mods with a set enabled by default:
 
+* Dytech mods
 * Yuoki Industries - All Turrets, Boilers, Ammos
 * Bob's Mods - All Turrets, Tanks including Artillery ammo, Ammos
 * Uranium Power - Ammo's and shells
@@ -31,8 +32,8 @@ Current Mods with a set enabled by default:
 
 ####More Information
 
-* Fuel items are automaticly added and sorted from low to high anytime a mod is added, changed, or removed.
-* car, dielsel-locomotive and tank are loaded with fuel with highest fuelvalue. (+ tank includes ammos too)
+* Fuel items are automatically added and sorted from low to high anytime a mod is added, changed, or removed.
+* car, diesel-locomotive and tank are loaded with fuel with highest fuel value. (+ tank includes ammos too)
 * Burners group: Burner mining drills, Stone furnaces, Steel furnaces, Burner inserters and Boilers work same as vehicles, but all fuel is divided to all "burners" that are in quickbar and hand.
 * Turrets group: Gun turrets are loaded with ammos (First in array first in use). Ammo is divided to all turrets in quickbar and hand.
 
@@ -60,6 +61,7 @@ reset to default setting
 ####Change Log
 ##Please see the changelog.txt file for more details
 
+* 1.4.5   - Updates to new Bobmods changes, Dytech and Outposts support
 * 1.4.4   - Factorio Version .14
 * 1.4.3   - Natural Evolution! -Added Biological Bullet from NE-Enemies -minor code fixes
 * 1.4.2   - Factorio Extended - Remote interface changes, Factorio Extended and Nucular added, cleaned up the sets a bit. squashed a few biters, Hotkey for toggling groups.
