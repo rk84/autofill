@@ -1,3 +1,6 @@
+1.4.6 - More Damn Turrets!
+-Additional Turrets Mod
+
 1.4.5 - Updates
 -updated to new bobs mods names
 -added Dytech, Outposts

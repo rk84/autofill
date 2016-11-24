@@ -22,10 +22,18 @@ local tbl = {
 		"super-explosive-cannon-shell", --Supertank
 		"uranium-small-nuke-shell", "uranium-cannon-shell", --Uranium Power --Nucular
 		"high-explosive-cannon-shell", --Aircraft
+		"small-cannon-shell", "small-explosive-cannon-shell", "cluster-cannon-shell", "fire-cannon-shell", "fire-cluster-cannon-shell", --Additional turret
 	},
 	shotgun= {
 		"explosive-shotgun-shell", --Mi-5, Incendiary ammo
 		"shattering-shotgun-shel", --Factorio Extended
+	},
+	rocket = {
+		"small-rocket", "small-explosive-rocket", "explosive-multiple-rocket", "acid-rocket", "acid-multiple-rocket", --Additional Turret
+	},
+	flamer = {
+		"acid-thrower-ammo", --Additional Turret
+		"flame-thrower-ammo-compressed", --Ammo Box
 	},
 }
 
@@ -34,4 +42,6 @@ return {
 	["ammo-bullets"] = tbl.bullets,
 	["ammo-shells"] = tbl.shells,
 	["ammo-shotgun"] = tbl.shotgun,
+	["ammo-rockets"] = tbl.rocket,
+	["ammo-flamethrower"] = tbl.flamer,
 }

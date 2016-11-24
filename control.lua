@@ -11,7 +11,7 @@ loader.addSets "settings/generic-sets"
 loader.addItemArray "settings/bob-newitems" --bobwarfare added Artillery and Laser Ammo
 loader.extendItemArray "settings/bob-items" -- Bob Warfare Bullets, Cannon Shells - TODO have it prio extended items
 loader.addSets "settings/bob-sets" -- Bobwarfare added tanks 2 and 3
-loader.addItemArray "settings/dytech-newitems"  --Dytech stuff
+loader.addItemArray "settings/dytech-newitems" --Dytech stuff
 loader.extendItemArray "settings/dytech-items"
 loader.addSets "settings/dytech-sets"
 loader.addItemArray "settings/yuoki-ind-newitems" --New Ammo Catergories for YI
@@ -19,10 +19,9 @@ loader.extendItemArray "settings/yuoki-ind-items" -- YI Bullets
 loader.addSets "settings/yuoki-ind-sets" -- YI Item Sets
 loader.addSets "settings/aircraft-sets"
 loader.addSets "settings/5dim-sets"
-loader.extendItemArray  "settings/at-items" -- Advanced Tanks and Tankwerkz Mod
-loader.addItemArray  "settings/at-newitems"
+loader.extendItemArray "settings/at-items" -- Advanced Tanks and Tankwerkz Mod
+loader.addItemArray "settings/at-newitems"
 loader.addSets "settings/at-sets"
-
 
 --flying text colors
 local RED = {r = 0.9}
@@ -40,72 +39,72 @@ local order = {
 --
 
 script.on_configuration_changed(function()
-  initMod(false,true)
-end)
+    initMod(false,true)
+  end)
 
 script.on_init(function()
-  initMod(true)
-end)
+    initMod(true)
+  end)
 
 script.on_event(defines.events.on_built_entity, function(event)
-  local player = game.players[event.player_index]
-  --if global.personalsets[player.name] and global.personalsets[player.name].uselimits == nil then global.personalsets[player.name].uselimits=true end
-  local global = global
-  if global.personalsets[player.name] and global.personalsets[player.name].active then
-	local fillset = global.personalsets[player.name][event.created_entity.name] or global.defaultsets[event.created_entity.name]
-    if fillset ~= 0 and fillset ~= nil then
-      autoFill(event.created_entity, player, fillset)
-	end
-  end
-end)
+    local player = game.players[event.player_index]
+    --if global.personalsets[player.name] and global.personalsets[player.name].uselimits == nil then global.personalsets[player.name].uselimits=true end
+    local global = global
+    if global.personalsets[player.name] and global.personalsets[player.name].active then
+      local fillset = global.personalsets[player.name][event.created_entity.name] or global.defaultsets[event.created_entity.name]
+      if fillset ~= 0 and fillset ~= nil then
+        autoFill(event.created_entity, player, fillset)
+      end
+    end
+  end)
 
 script.on_event(defines.events.on_player_created, function(event)
-  local username = game.players[event.player_index].name
-  if global.personalsets[username] == nil then
-    global.personalsets[username] = { active = true, uselimits=true, usegroups=true }
-  end
-  --log("AutoFill: user ".. username .. " Created")
-end)
+    local username = game.players[event.player_index].name
+    if global.personalsets[username] == nil then
+      global.personalsets[username] = { active = true, uselimits=true, usegroups=true }
+    end
+    --log("AutoFill: user ".. username .. " Created")
+  end)
 
 script.on_event("autofill-entity", function(event)
-  local selection = game.players[event.player_index].selected
-  local player = game.players[event.player_index]
-  local global = global
-  if global.personalsets[player.name] and global.personalsets[player.name].active and selection then
-    local fillset = global.personalsets[player.name][selection.name] or global.defaultsets[selection.name]
-    if fillset ~= 0 and fillset ~= nil then
-      autoFill(selection, player, fillset)
+    local selection = game.players[event.player_index].selected
+    local player = game.players[event.player_index]
+    local global = global
+    if global.personalsets[player.name] and global.personalsets[player.name].active and selection then
+      local fillset = global.personalsets[player.name][selection.name] or global.defaultsets[selection.name]
+      if fillset ~= 0 and fillset ~= nil then
+        autoFill(selection, player, fillset)
+      end
     end
-  end
-end)
+  end)
 
 script.on_event("autofill-toggle-limits", function(event)
-	local player = game.players[event.player_index]
-	local afplayer = global.personalsets[player.name]
-	if afplayer then
-		afplayer.uselimits = not afplayer.uselimits
-		if afplayer.uselimits then
-			player.print({"autofill.toggle-limits-on"})
-		elseif not afplayer.uselimits then
-			player.print({"autofill.toggle-limits-off"})
-		end
-		global.personalsets[player.name].uselimits=afplayer.uselimits
-	end
-end)
+    local player = game.players[event.player_index]
+    local afplayer = global.personalsets[player.name]
+    if afplayer then
+      afplayer.uselimits = not afplayer.uselimits
+      if afplayer.uselimits then
+        player.print({"autofill.toggle-limits-on"})
+      elseif not afplayer.uselimits then
+        player.print({"autofill.toggle-limits-off"})
+      end
+      global.personalsets[player.name].uselimits=afplayer.uselimits
+    end
+  end)
 
 script.on_event("autofill-toggle-groups", function(event)
-  local player = game.players[event.player_index]
-  local afplayer = global.personalsets[player.name]
-  if afplayer then
-    afplayer.usegroups = not afplayer.usegroups
-    if afplayer.usegroups then
-      player.print({"autofill.toggle-groups-on"})
-    elseif not afplayer.usegroups then
-      player.print({"autofill.toggle-groups-off"})
+    local player = game.players[event.player_index]
+    local afplayer = global.personalsets[player.name]
+    if afplayer then
+      afplayer.usegroups = not afplayer.usegroups
+      if afplayer.usegroups then
+        player.print({"autofill.toggle-groups-on"})
+      elseif not afplayer.usegroups then
+        player.print({"autofill.toggle-groups-off"})
+      end
+      global.personalsets[player.name].usegroups=afplayer.usegroups
     end
-    global.personalsets[player.name].usegroups=afplayer.usegroups
-  end
-end)
+  end)
 
 --
 --Funtions
@@ -120,7 +119,7 @@ function printToFile(line, title, path)
   else
     msg = serpent.dump(line, {name=title, comment=false, sparse=false, sortkeys=true})
   end
-  game.write_file( path,  msg.."\n", true)
+  game.write_file( path, msg.."\n", true)
 end
 
 function debugDump(var, force)
@@ -147,38 +146,38 @@ function autoFill(entity, player, fillset)
 
   local quickbar = player.get_inventory(defines.inventory.player_quickbar)
   local array, item, count, groupsize, slots, totalitemcount, color, inserted, removed
-  for i=1, #fillset do  --? Item prototype check here?
+  for i=1, #fillset do --? Item prototype check here?
     array = fillset[i]
     item = false
     count = 0
     color = RED
 
-	if fillset.priority == order.itemcount then -- Pick item with highest count
-		for j = 1, #array do
-		if game.item_prototypes[array[j]] then
-			if vehicleinv then
-				if maininv.get_item_count(array[j]) + vehicleinv.get_item_count(array[j]) > count then
-					item = array[j]
-					count = maininv.get_item_count(array[j]) + vehicleinv.get_item_count(array[j])
-					end
-					else
-					if maininv.get_item_count(array[j]) > count then
-					item = array[j]
-					count = maininv.get_item_count(array[j])
-				end
-			end
-		end
-	end
+    if fillset.priority == order.itemcount then -- Pick item with highest count
+      for j = 1, #array do
+        if game.item_prototypes[array[j]] then
+          if vehicleinv then
+            if maininv.get_item_count(array[j]) + vehicleinv.get_item_count(array[j]) > count then
+              item = array[j]
+              count = maininv.get_item_count(array[j]) + vehicleinv.get_item_count(array[j])
+            end
+          else
+            if maininv.get_item_count(array[j]) > count then
+              item = array[j]
+              count = maininv.get_item_count(array[j])
+            end
+          end
+        end
+      end
     elseif fillset.priority == order.opposite then --Pick last available item
       for j = #array, 1, -1 do
-      if game.item_prototypes[array[j]] then
-        if maininv.get_item_count(array[j]) > 0 or vehicleinv and vehicleinv.get_item_count(array[j]) > 0 then
-          item = array[j]
-          count = maininv.get_item_count(array[j])
-          count = not vehicleinv and count or count + vehicleinv.get_item_count(array[j])
-          break
+        if game.item_prototypes[array[j]] then
+          if maininv.get_item_count(array[j]) > 0 or vehicleinv and vehicleinv.get_item_count(array[j]) > 0 then
+            item = array[j]
+            count = maininv.get_item_count(array[j])
+            count = not vehicleinv and count or count + vehicleinv.get_item_count(array[j])
+            break
+          end
         end
-       end
       end
     else --Pick first available item
       for j = 1, #array do
@@ -223,15 +222,15 @@ function autoFill(entity, player, fillset)
 
         totalitemcount = 0
         for j=1, #array do
-			if game.item_prototypes[array[j]] then
-				totalitemcount = totalitemcount + maininv.get_item_count(array[j])
-			end
+          if game.item_prototypes[array[j]] then
+            totalitemcount = totalitemcount + maininv.get_item_count(array[j])
+          end
         end
         if vehicleinv then
           for j=1, #array do
-			if game.item_prototypes[array[j]] then
-				totalitemcount = totalitemcount + vehicleinv.get_item_count(array[j])
-			end
+            if game.item_prototypes[array[j]] then
+              totalitemcount = totalitemcount + vehicleinv.get_item_count(array[j])
+            end
           end
         end
         count = math.max( 1, math.min( count, math.floor(totalitemcount / groupsize) ) )
@@ -248,7 +247,7 @@ function autoFill(entity, player, fillset)
       end
 
       -- Determine insertable stack count if has slot count
-      if fillset.slots and fillset.slots[i] then  --TODO Also see if slots are full for use in hotkey filling, also check if we have a better type of ammo/fuel, ALSO check if inv full
+      if fillset.slots and fillset.slots[i] then --TODO Also see if slots are full for use in hotkey filling, also check if we have a better type of ammo/fuel, ALSO check if inv full
         slots = fillset.slots[i]
       else
         slots = 1
@@ -300,7 +299,7 @@ function getDefaultSets()
     ["steel-furnace"] = {priority=order.default, group="burners", limits={5}, global.fuels.high},
     ["gun-turret"]= {priority=order.default, group="turrets", limits= {10}, global.ammo.bullets }
   } -- if group is defined, then insertable items are divided for buildable
-    -- items in quickbar (and in hand).
+  -- items in quickbar (and in hand).
 end
 
 function getLiteSets()
@@ -329,14 +328,12 @@ function globalPrint(msg)
   else
     output=serpent.dump(msg, {name="var", comment=false, sparse=false, sortkeys=true})
   end
-   --msg = { "autofill.msg-template", msg }
+  --msg = { "autofill.msg-template", msg }
   for i=1, #players do
     players[i].print(output)
   end
   printToFile(output)
 end
-
-
 
 function initMod(reset,update)
   if not global.defaultsets or not global.personalsets or not global.item_arrays or reset then
@@ -345,22 +342,22 @@ function initMod(reset,update)
     loader.loadBackup()
 
     if not update or reset then
-		if reset then global.personalsets = {} end
-    for k, player in pairs(game.players) do
-		  global.personalsets[player.name] = { active = true, uselimits=true, usegroups=true}
-		end
+      if reset then global.personalsets = {} end
+      for k, player in pairs(game.players) do
+        global.personalsets[player.name] = { active = true, uselimits=true, usegroups=true}
+      end
     end
 
     global.has_init = true
     log("Autofill: Initilized")
-	else
-		if update then
-			loader.loadBackup()
-			log("AutoFill: Defaults Updated")
-		else
-			loader.updateFuelArrays(global.item_arrays)
-		end
-	end
+  else
+    if update then
+      loader.loadBackup()
+      log("AutoFill: Defaults Updated")
+    else
+      loader.updateFuelArrays(global.item_arrays)
+    end
+  end
 end
 
 function isValidEntity(name)
@@ -430,7 +427,6 @@ function isValidUser(name)
   return false
 end
 
-
 --[[
 function printToFile(line, path)
   path = path or "log"
@@ -452,109 +448,109 @@ end
 --
 
 remote.add_interface(MOD.IF,
-{
-  insertset = function(username, entityname, set)--this fuction is for inserting personal sets.
-    username = isValidUser(username)
-    if username and isValidEntity(entityname) and isValidSet(set) then
-      global.personalsets[username][entityname] = set
-    end
-  end,
+  {
+    insertset = function(username, entityname, set)--this fuction is for inserting personal sets.
+      username = isValidUser(username)
+      if username and isValidEntity(entityname) and isValidSet(set) then
+        global.personalsets[username][entityname] = set
+      end
+    end,
 
-  addToDefaultSets = function(entityname, set)
-    if isValidEntity(entityname) and isValidSet(set) then
-      global.defaultsets[entityname] = set
-    end
-  end,
+    addToDefaultSets = function(entityname, set)
+      if isValidEntity(entityname) and isValidSet(set) then
+        global.defaultsets[entityname] = set
+      end
+    end,
 
-  getDefaultSets = function()
-    local sets = table.deepcopy(global.defaultsets)
-    for entity_name, set in pairs(sets) do
-      for i=1, #set do
-        for name, array in pairs(global.item_arrays) do
-          if global.defaultsets[entity_name][i] == array then
-            set[i] = name
-            break
+    getDefaultSets = function()
+      local sets = table.deepcopy(global.defaultsets)
+      for entity_name, set in pairs(sets) do
+        for i=1, #set do
+          for name, array in pairs(global.item_arrays) do
+            if global.defaultsets[entity_name][i] == array then
+              set[i] = name
+              break
+            end
           end
         end
       end
-    end
-    return sets
-  end,
+      return sets
+    end,
 
-  setDefaultSets = function(sets)
-    for entity_name, set in pairs(sets) do
-      if not isValidSet(set) then
-        return
+    setDefaultSets = function(sets)
+      for entity_name, set in pairs(sets) do
+        if not isValidSet(set) then
+          return
+        end
       end
-    end
-    global.defaultsets = sets
-  end,
+      global.defaultsets = sets
+    end,
 
-  getBackupLog = function()
-    local tbl = loader.getBackupLog()
-    local block = table.concat(tbl, "\n")
-    log(block)
-  end,
+    getBackupLog = function()
+      local tbl = loader.getBackupLog()
+      local block = table.concat(tbl, "\n")
+      log(block)
+    end,
 
-  getItemArray = function(name)
-    return global.item_arrays[name]
-  end,
+    getItemArray = function(name)
+      return global.item_arrays[name]
+    end,
 
-  setItemArray = function(name, new_array)
-    if global.item_arrays[name] == nil then
-      global.item_arrays[name] = new_array
-    else -- replaces content of table without creating new table to maintain referers
-      local old_array = global.item_arrays[name]
-      local max = #old_array < #new_array and #new_array or #old_array
-      for i=1, max do
-        old_array[i] = new_array[i]
+    setItemArray = function(name, new_array)
+      if global.item_arrays[name] == nil then
+        global.item_arrays[name] = new_array
+      else -- replaces content of table without creating new table to maintain referers
+        local old_array = global.item_arrays[name]
+        local max = #old_array < #new_array and #new_array or #old_array
+        for i=1, max do
+          old_array[i] = new_array[i]
+        end
       end
-    end
-  end,
+    end,
 
-  logGlobal = function(key)
-    key = key or "global"
-    if _G[key] then
-      log( serpent.block(_G[key]) )
-    else
-      globalPrint("Global not found.")
-    end
-  end,
-
-  resetMod = function()
-    initMod(true)
-  end,
-
-  resetUser = function(setname, username)
-    username = isValidUser(username)
-    if username then
-      if setname == "lite" then
-        global.personalsets[username] = makePersonalLiteSets()
+    logGlobal = function(key)
+      key = key or "global"
+      if _G[key] then
+        log( serpent.block(_G[key]) )
       else
-        global.personalsets[username] = { active = true }
+        globalPrint("Global not found.")
+      end
+    end,
+
+    resetMod = function()
+      initMod(true)
+    end,
+
+    resetUser = function(setname, username)
+      username = isValidUser(username)
+      if username then
+        if setname == "lite" then
+          global.personalsets[username] = makePersonalLiteSets()
+        else
+          global.personalsets[username] = { active = true }
+        end
+      end
+    end,
+
+    toggleUsage = function(username)
+      username = isValidUser(username)
+      if username then
+        if global.personalsets[username] then
+          global.personalsets[username].active = not global.personalsets[username].active
+        else
+          global.personalsets[username] = { active = true }
+        end
+      end
+    end,
+
+    setUsage = function(username, toggle)
+      username = isValidUser(username)
+      if username then
+        if global.personalsets[username] then
+          --local oldmode=global.personalsets[username].active
+          global.personalsets[username].active=toggle
+          return not toggle
+        end
       end
     end
-  end,
-
-  toggleUsage = function(username)
-    username = isValidUser(username)
-    if username then
-      if global.personalsets[username] then
-        global.personalsets[username].active = not global.personalsets[username].active
-      else
-        global.personalsets[username] = { active = true }
-      end
-    end
-  end,
-
-	setUsage = function(username, toggle)
-		username = isValidUser(username)
-		if username then
-			if global.personalsets[username] then
-				--local oldmode=global.personalsets[username].active
-				global.personalsets[username].active=toggle
-				return not toggle
-			end
-		end
-	end
-})
+  })
