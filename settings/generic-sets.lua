@@ -20,4 +20,11 @@ return {
 	["gun-turret-mk2"]				= {priority=3, group="turrets", limits={10}, "ammo-bullets"}, --Factorio Extended
 	["exploration-vehicle"] = {priority=3, "fuels-all", "ammo-bullets"}, -- Outposts mod
 
+	--Additional Turrets
+	["at-cannon-turret-mk1"] = {priority=3, group="cannon-turrets", limits={10}, slots={1}, "ammo-shells"},
+	["at-cannon-turret-mk2"] = {priority=3, group="cannon-turrets", limits={10}, slots={2}, "ammo-shells", "ammo-shells"},
+	["at-rocket-turret-mk1"] = {priority=3, group="rocket-turrets", limits={10}, slots={1}, "ammo-rockets"},
+	["at-rocket-turret-mk2"] = {priority=3, group="rocket-turrets", limits={10}, slots={1}, "ammo-rockets"},
+	["at_Artillery_mk1"] = {priority=3, limits={10}, slots={1}, "at-artillery-mk1-shell"},
+	--["at_Artillery_mk2_area"] = {priority=3, limits={10}, slots={1}, "at-artillery-mk2-shell"},
 }
